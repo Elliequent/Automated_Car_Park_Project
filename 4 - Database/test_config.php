@@ -12,7 +12,6 @@ $timezone = date_default_timezone_set("Europe/London");
 $servername = "localhost:3306";
 $username = "user";
 $password = "user";
-$port = "1433";
 $db_name = "mydb";
 
 // IP Address, username, password and database table
