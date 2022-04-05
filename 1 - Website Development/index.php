@@ -2,6 +2,13 @@
 
 require 'System/Config/config.php';
 
+require 'System/Classes/User.php';
+require 'System/Classes/Vehicle.php';
+require 'System/Classes/User_Vehicles.php';
+require 'System/Classes/Parking_Structure.php';
+require 'System/Classes/Parking_Space.php';
+require 'System/Classes/Arrival_Departure.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -39,38 +46,68 @@ require 'System/Config/config.php';
 
 <body>
 
+<h2> Testing - Data </h2>
+
+<br><br>
+
+<a href="Test/datauser.php">USER DATA</a>
+<a href="Test/datavehicle.php">VEHICLE DATA</a>
+<a href="Test/dataParking_Structure.php">PARKING STRUCTURE DATA</a>
+<a href="Test/dataParking_Space.php">PARKING SPACE DATA</a>
+<a href="Test/dataUser_Vehcile.php">USER_VEHICLE DATA</a>
+<a href="Test/dataArrival_Departure.php">ARRIVAL_DEPARTURE DATA</a>
+
+<br><br>
+
+<h2> Testing - Add </h2>
+
+<br><br>
+
+<a href="Test/adduser.php">ADD A USER</a>
+<a href="Test/addvehicle.php">ADD A VEHICLE</a>
+<a href="Test/addParking_Structure.php">ADD A PARKING STRUCTURE</a>
+<a href="Test/addParking_Space.php">ADD A PARKING SPACE</a>
+<a href="Test/addParking_Space.php">ADD A PARKING SPACE</a>
+
+<br><br>
+
+<h2> Testing - Other </h2>
+
+<br><br>
+
+<a href="Test/addUser_Vehicle.php">LINK A USER TO A VEHICLE</a>
+<a href="Test/arrive.php">ARRIVAL TEST</a>
+<a href="Test/depart.php">DEPART TEST</a>
+
+<br><br>
+
+<h2> Testing - Update </h2>
+
+<br><br>
+
+<a href="Test/updateuser.php">UPDATE A USER</a> 
+<a href="Test/updatevehicle.php">UPDATE A VEHICLE</a> 
+<a href="Test/updateparking_structure.php">UPDATE A PARKING STRUCTURE</a> 
+<a href="Test/updateparking_space.php">UPDATE A PARKING SPACE</a> 
+
+<br><br>
+
+<h2> Testing - DELETE </h2>
+
+<br><br>
+
+<a href="deleteuser.php">DELETE A USER</a> 
+<a href="deletevehicle.php">DELETE A VEHICLE</a> 
+<a href="deleteparking_strucuture.php">DELETE A PARKING STRUCTURE</a> 
+<a href="deleteparking_space.php">DELETE A PARKING SPACE</a> 
+<a href="deleteuser_vehicle.php">DELETE A USER_VEHICLE</a> 
+<a href="deletearrival_departure.php">DELETE A ARRIVAL_DEPARTURE</a> 
+
+<br><br>
+
 <?php
 
-    $vehicle_test = mysqli_query($con, "SELECT * FROM Vehicle WHERE Registeration_Plate='MUSKY'");
-    $vehicle_test_array = mysqli_fetch_array($vehicle_test);
 
-    $find_user_test = mysqli_query($con, "SELECT * FROM User_Vehicles WHERE Registeration_Plate='MUSKY'");
-    $find_user_array = mysqli_fetch_array($find_user_test);
-
-    $user_id = $find_user_array['User_ID'];
-
-    $User_test = mysqli_query($con, "SELECT * FROM User WHERE User_ID='$user_id'");
-    $User_test_array = mysqli_fetch_array($User_test);
-
-    $travel_test = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE User_ID='$user_id'");
-    $travel_array = mysqli_fetch_array($travel_test);
-
-    $parking = $travel_array['Parking_Structure_ID'];
-
-    $parking_test = mysqli_query($con, "SELECT * FROM Parking_Structure WHERE Parking_Structure_ID='$parking'");
-    $parking_array = mysqli_fetch_array($parking_test);
-
-    $parking_space_test = mysqli_query($con, "SELECT * FROM Parking_Spaces WHERE Parking_Structure_ID='$parking'");
-    $parking_space_array = mysqli_fetch_array($parking_space_test);
-
-    echo("<pre>");
-    print_r($vehicle_test_array);
-    print_r($find_user_array);
-    print_r($User_test_array);
-    print_r($travel_array);
-    print_r($parking_array);
-    print_r($parking_space_array);
-    die();
 
 ?>
 
