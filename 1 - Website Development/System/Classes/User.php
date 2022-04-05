@@ -138,15 +138,8 @@ class User
     public function newUser($con, $username, $password, $firstname, $lastname, $email, $phonenumber, $address)
     {
 
-        $highest_user_ID = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
-
-        $row = mysqli_fetch_array($highest_user_ID);
-
-        $highest_user_id_int = intval($row['0']) + 1;
-
-        $highest_user_id_str = strval($highest_user_id_int);
-
-        if (mysqli_query($con, "INSERT INTO User VALUES ('$highest_user_id_str', '$username', '$password', '$firstname', '$lastname', '$email', '$phonenumber', '$address')"))
+        // Creates new user object
+        if (mysqli_query($con, "INSERT INTO User VALUES ('$username', '$password', '$firstname', '$lastname', '$email', '$phonenumber', '$address')"))
         {
 
             return TRUE;
@@ -164,6 +157,7 @@ class User
     public function updateUser($con, $field, $change, $user_id)
     {
 
+        // Updates user object
         if (mysqli_query($con, "UPDATE User SET $field = '$change' WHERE User_ID='$user_id'"))
 
         {
@@ -183,6 +177,7 @@ class User
     public function deleteUser($con, $user_id)
     {
 
+        // Removes user object from database
         if (mysqli_query($con, "DELETE FROM User WHERE User_ID='$user_id'"))
 
         {

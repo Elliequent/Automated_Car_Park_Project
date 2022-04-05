@@ -1,6 +1,6 @@
 <?php
 
-class Parking_Spaces 
+class Parking_Space 
 {
 
     // Class Attributes
@@ -59,9 +59,14 @@ class Parking_Spaces
 
     }
 
+    public function getRegisteration_Plate()
+    {
+
+        return @$this->parking_spaces['Registeration_Plate']; 
+
+    }
 
     // NOTE - Parking_Space_ID and Parking_Structure_ID is determined by system and cannot be set
-
 
     public function setFloor($Floor)
     {
@@ -84,6 +89,13 @@ class Parking_Spaces
 
     } 
 
+    public function setRegisteration_Plate($Registeration_Plate)
+    {
+
+        mysqli_query($this->con, "UPDATE Parking_Spaces SET Registeration_Plate = '$Registeration_Plate' WHERE Parking_Space_ID='$parking_spaces'");
+
+    } 
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                         // Functions \\
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,16 +103,8 @@ class Parking_Spaces
     public function newParking_Spaces($con, $Parking_Structure_ID, $Floor, $Space_Number, $is_disabled)
     {
 
-        $highest_Parking_Space_ID = mysqli_query($con, "SELECT MAX(Parking_Space_ID) FROM Parking_Spaces");
-
-        $row = mysqli_fetch_array($highest_Parking_Space_ID);
-
-        $highest_Parking_Space_ID_int = intval($row['0']) + 1;
-
-        $highest_Parking_Space_ID_str = strval($highest_Parking_Space_ID_int);
-
-
-        if (mysqli_query($con, "INSERT INTO Parking_Spaces VALUES ('$highest_Parking_Space_ID_str', '$Parking_Structure_ID', '$Floor', '$Space_Number', '$is_disabled')"))
+        // Creates a new parking space object
+        if (mysqli_query($con, "INSERT INTO Parking_Spaces VALUES ('$Parking_Structure_ID', '$Floor', '$Space_Number', '$is_disabled')"))
         {
 
             return TRUE;
@@ -118,6 +122,7 @@ class Parking_Spaces
     public function updateParking_Spaces($con, $field, $change, $Parking_Space_ID)
     {
 
+        // Changes information about parking space
         if (mysqli_query($con, "UPDATE Parking_Spaces SET $field = '$change' WHERE Parking_Space_ID='$Parking_Space_ID'"))
 
         {
@@ -137,6 +142,7 @@ class Parking_Spaces
     public function deleteParking_Spaces($con, $Parking_Structure_ID)
     {
 
+        // Removes parking space record from database
         if (mysqli_query($con, "DELETE FROM Parking_Spaces WHERE Parking_Space_ID='$Parking_Space_ID'"))
 
         {

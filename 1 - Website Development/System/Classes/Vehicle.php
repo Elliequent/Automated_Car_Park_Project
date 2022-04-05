@@ -66,9 +66,7 @@ class Vehicle
 
     }
 
-
     // NOTE - Registeration_Plate is provided by user and not generated
-
 
     public function setMake($Make)
     {
@@ -107,7 +105,7 @@ class Vehicle
     public function newVehicle($con, $Registeration_Plate, $Make, $Model, $Is_Electric, $Is_Currently_Parked, $Parking_Space_ID)
     {
 
-
+        // Creates new vehicle object
         if (mysqli_query($con, "INSERT INTO Vehicle VALUES ('$Registeration_Plate', '$Make', '$Model', '$Is_Electric', '$Is_Currently_Parked', '$Parking_Space_ID')"))
         {
 
@@ -126,6 +124,7 @@ class Vehicle
     public function updateVehicle($con, $field, $change, $Registeration_Plate)
     {
 
+        // Updates vehicle object
         if (mysqli_query($con, "UPDATE Vehicle SET $field = '$change' WHERE Registeration_Plate='$Registeration_Plate'"))
 
         {
@@ -145,6 +144,7 @@ class Vehicle
     public function deleteVehicle($con, $Registeration_Plate)
     {
 
+        // Removes vehicle object from database
         if (mysqli_query($con, "DELETE FROM Vehicle WHERE Registeration_Plate='$Registeration_Plate'"))
 
         {

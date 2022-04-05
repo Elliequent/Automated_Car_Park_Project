@@ -52,9 +52,7 @@ class Parking_Structure
 
     }
 
-
     // NOTE - Parking_Structure_ID is determined by system and cannot be set
-
 
     public function setAddress($Address)
     {
@@ -84,16 +82,8 @@ class Parking_Structure
     public function newParking_Structure($con, $Address, $Number_of_parking_spaces, $Cost_per_hour)
     {
 
-        $highest_parking_structure_ID = mysqli_query($con, "SELECT MAX(Parking_Structure_ID) FROM Parking_Structure");
-
-        $row = mysqli_fetch_array($highest_parking_structure_ID);
-
-        $highest_parking_structure_ID_int = intval($row['0']) + 1;
-
-        $highest_parking_structure_ID_str = strval($highest_parking_structure_ID_int);
-
-
-        if (mysqli_query($con, "INSERT INTO Parking_Structure VALUES ('$highest_parking_structure_ID_str', '$Address', '$Number_of_parking_spaces', '$Cost_per_hour')"))
+        // Creates parking structure object
+        if (mysqli_query($con, "INSERT INTO Parking_Structure VALUES ('$Address', '$Number_of_parking_spaces', '$Cost_per_hour')"))
         {
 
             return TRUE;
@@ -111,6 +101,7 @@ class Parking_Structure
     public function updateParking_Structure($con, $field, $change, $Parking_Structure_ID)
     {
 
+        // Updates parking structure information
         if (mysqli_query($con, "UPDATE Parking_Structure SET $field = '$change' WHERE Parking_Structure_ID='$Parking_Structure_ID'"))
 
         {
@@ -130,6 +121,7 @@ class Parking_Structure
     public function deleteParking_Structure($con, $Parking_Structure_ID)
     {
 
+        // Removes parking structure information from database
         if (mysqli_query($con, "DELETE FROM Parking_Structure WHERE Parking_Structure_ID='$Parking_Structure_ID'"))
 
         {

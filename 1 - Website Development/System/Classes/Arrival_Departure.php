@@ -14,8 +14,9 @@ class Arrival_Departure
     public function __construct($con, $arrival_departure) 
     {
 
+        // This needs to be changed to Arrival_Departure_ID when new DB is up
        $this->con = $con;
-       $arrival_departure_details_query = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE Arrival_Departure_ID = '$arrival_departure'");
+       $arrival_departure_details_query = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE User_ID = '$arrival_departure'");
        $this->arrival_departure = mysqli_fetch_array($arrival_departure_details_query);
 
     } 
@@ -79,18 +80,14 @@ class Arrival_Departure
                                                         // Functions \\
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function newArrival_Departure($con, $Arrival_Departure_ID, $User_ID, $Parking_Structure_ID, $Arrival_Time, $Departure_Time)
+
+    public function newArrival($con, $User_ID, $Parking_Structure_ID, $Arrival_Time)
     {
 
-        $highest_Arrival_Departure_ID = mysqli_query($con, "SELECT MAX(Arrival_Departure_ID) FROM Departure_Time");
+        $date_time_now = date("Y-m-d H:i:s");
 
-        $row = mysqli_fetch_array($highest_Arrival_Departure_ID);
-
-        $highest_Arrival_Departure_ID_int = intval($row['0']) + 1;
-
-        $highest_Arrival_Departure_ID_str = strval($highest_Arrival_Departure_ID_int);
-
-        if (mysqli_query($con, "INSERT INTO Arrival_Departure VALUES ('$highest_Arrival_Departure_ID_str', '$User_ID', '$Parking_Structure_ID', '$Arrival_Time', '$Departure_Time')"))
+        // Creates arrival record - records arrival and departure as the same date
+        if (mysqli_query($con, "INSERT INTO Arrival_Departure VALUES ('$User_ID', '$Parking_Structure_ID', '$date_time_now', '$date_time_now')"))
         {
 
             return TRUE;
@@ -108,6 +105,7 @@ class Arrival_Departure
     public function updateArrival_Departure($con, $field, $change, $Arrival_Departure_ID)
     {
 
+        // Changes the information in the arrival and departure record - mostly used for correcting errors and testing
         if (mysqli_query($con, "UPDATE Arrival_Departure SET $field = '$change' WHERE Arrival_Departure_ID='$Arrival_Departure_ID'"))
 
         {
@@ -124,11 +122,47 @@ class Arrival_Departure
 
     }   // End of FUNCTION updateArrival_Departure()
 
-    // REQUIRED - create newArrival with current time no departure - and then update that update the departure with current time
+    public function updateDeparture($con, $Registeration_Plate)
+    {
+
+        // Finding the User_ID for the registeration plate
+        $registeration_plate_search = mysqli_query($con, "SELECT User_ID FROM User_Vehicles WHERE Registeration_Plate = '$Registeration_Plate'");
+
+        $row1 = mysqli_fetch_array($registeration_plate_search);
+
+        $user_id = $row1[0];
+
+        // Finding the most recent arrival_departure_ID of user
+        $highest_Arrival_Departure_ID = mysqli_query($con, "SELECT MAX(Arrival_Departure_ID) FROM Departure_Time WHERE User_ID ='$user_id'");
+
+        $row2 = mysqli_fetch_array($highest_Arrival_Departure_ID);
+
+        $Arrival_Departure_ID = $row2[0];
+
+        // Recording current time for departure
+        $date_time_now = date("Y-m-d H:i:s");
+
+        // Records the arrival of user into database - event listener (Handled by Python Script - here for testing)
+        if (mysqli_query($con, "UPDATE Arrival_Departure SET Departure_Time = '$date_time_now' WHERE Arrival_Departure_ID='$Arrival_Departure_ID'"))
+
+        {
+
+            return TRUE;
+
+        }
+        else
+        {
+
+            return FALSE;
+
+        }
+
+    }   // End of FUNCTION updateArrival_Departure()
 
     public function deleteArrival_Departure($con, $Arrival_Departure_ID)
     {
 
+        // Deletes record of arrival and departure - here for testing
         if (mysqli_query($con, "DELETE FROM Arrival_Departure WHERE Arrival_Departure_ID='$Arrival_Departure_ID'"))
 
         {
