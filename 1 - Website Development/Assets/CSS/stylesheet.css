@@ -2,5 +2,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+a {
+    margin-right: 20px !important;
 }
 
