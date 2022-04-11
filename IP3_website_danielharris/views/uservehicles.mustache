@@ -1,0 +1,29 @@
+<html>
+<head>
+  list of user's vehicles
+</head>
+<body>
+<link href="css/main.css" rel="stylesheet" />
+<h1>UserVehicles</h1>
+
+<div class="text-right">
+  <a href="/uservehicle/new" class="btn btn-primary">
+    write in a new user's vehicle
+  </a>
+</div>
+{{#userVehicles}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> userID: {{userID}}</h4>
+    <p class="card-text">
+      registration plate: {{registrationPlate}}
+     </p>
+</div>
+</div>
+{{/userVehicles}}
+
+{{^userVehicles}}
+  No entries yet.
+{{/userVehicles}}
+</body>
+</html>

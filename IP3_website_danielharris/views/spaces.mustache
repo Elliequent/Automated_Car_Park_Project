@@ -1,0 +1,31 @@
+<html>
+<head>
+  parking spaces
+</head>
+<body>
+<h1>{{title}}</h1>
+
+<div class="text-right">
+  <a href="/parking/new" class="btn btn-primary">
+    Write in the guestbook
+  </a>
+</div>
+{{#spaces}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> parkingID: {{parkingID}}</h4>
+    <p class="card-text">
+      structureID: {{structureID}}
+     </p>
+<div class="card-footer">
+  <p>on floor {{floor}}</a> at space number  {{spaceNumber}}</p>
+  <p> isDisabled: {{isDisabled}}</p>
+</div>
+</div>
+{{/spaces}}
+
+{{^spaces}}
+  No entries yet.
+{{/spaces}}
+</body>
+</html>

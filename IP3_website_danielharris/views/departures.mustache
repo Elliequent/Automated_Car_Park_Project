@@ -1,0 +1,33 @@
+<html>
+<head>
+  list of departures & arrivals
+</head>
+<body>
+<link href="css/main.css" rel="stylesheet" />
+<h1>Departures</h1>
+
+<div class="text-right">
+  <a href="/departures/new" class="btn btn-primary">
+    write in a new arrival and departure times
+  </a>
+</div>
+{{#departures}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">userID: {{userID}}</h4>
+    <p class="card-text">
+      structureID: {{structureID}}
+     </p>
+     <p> car make: {{make}}</p>
+<div class="card-footer">
+  <p>time is '{{departureTime}}</a> to  {{arrivalTime}}</p>
+
+</div>
+</div>
+{{/departures}}
+
+{{^departures}}
+  No entries yet.
+{{/departures}}
+</body>
+</html>

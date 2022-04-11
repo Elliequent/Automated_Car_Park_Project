@@ -1,0 +1,43 @@
+<html>
+<head>
+  list of users
+</head>
+<body>
+<link href="css/main.css" rel="stylesheet" />
+<h1>users</h1>
+
+<div class="text-right">
+  <a href="/users/new" class="btn btn-primary">
+    write in a new user
+  </a>
+</div>
+{{#users}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> userID: {{userID}}</h4>
+    <p class="card-text">
+      name: {{name}}
+     </p>
+     <p> username: {{username}}</p>
+<div class="card-footer">
+  <p>address: {{address}}</a> , phoneNumber: {{phoneNumber}}</p>
+  <br>
+  <p> emailAddress: {{email}}</p>
+  <br>
+  <p> user's role: {{role}}</p>
+</div>
+  <a href="/users/update" class="btn btn-primary">
+    update this user
+  </a>
+  <br>
+    <a href="/users/delete" class="btn btn-primary">
+    delete this user
+  </a>
+</div>
+{{/users}}
+
+{{^users}}
+  No entries yet.
+{{/users}}
+</body>
+</html>

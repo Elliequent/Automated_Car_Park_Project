@@ -1,0 +1,36 @@
+<html>
+<head>
+  list of vehicles
+</head>
+<body>
+<link href="css/main.css" rel="stylesheet" />
+<h1>Vehicles</h1>
+
+<div class="text-right">
+  <a href="/vehicles/new" class="btn btn-primary">
+    write in a new vehicle
+  </a>
+</div>
+{{#vehicles}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> registration plate: {{registrationPlate}}</h4>
+    <p class="card-text">
+     parking spaceID: {{parkingSpaceId}}
+     </p>
+     <p> vehicle make: {{make}}</p>
+<div class="card-footer">
+  <p>car model'{{model}}</a> , on {{make}}</p>
+  <br>
+  <p>isElectric: {{isElectric}}</p>
+  <br>
+  <p> isParked: {{isParked}}</p>
+</div>
+</div>
+{{/vehicles}}
+
+{{^vehicles}}
+  No entries yet.
+{{/vehicles}}
+</body>
+</html>

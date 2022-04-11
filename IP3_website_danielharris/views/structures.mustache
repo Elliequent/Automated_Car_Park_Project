@@ -1,0 +1,38 @@
+<html>
+<head>
+  parking structures
+</head>
+<body>
+<link href="css/main.css" rel="stylesheet" />
+<h1>{{title}}</h1>
+
+<div class="text-right">
+  <a href="/structure/newStructure" class="btn btn-primary">
+    Write in a parking structure
+  </a>
+</div>
+{{#structures}}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> structureID: {{stuctureID}}</h4>
+    <p class="card-text">
+      address: {{address}}
+     </p>
+<div class="card-footer">
+  <p>parking spaces: '{{parkingSpaces}}</a> , the cost per hour is  {{costPerHour}}</p>
+</div>
+  <a href="/structure/update" class="btn btn-primary">
+    update this structure
+  </a>
+  <br>
+    <a href="/structure/delete" class="btn btn-primary">
+    delete this structure
+  </a>
+</div>
+{{/structures}}
+
+{{^structures}}
+  No entries yet.
+{{/structures}}
+</body>
+</html>
