@@ -1,0 +1,36 @@
+    $vehicle_test = mysqli_query($con, "SELECT * FROM Vehicle WHERE Registeration_Plate='MUSKY'");
+    $vehicle_test_array = mysqli_fetch_array($vehicle_test);
+
+    $find_user_test = mysqli_query($con, "SELECT * FROM User_Vehicles WHERE Registeration_Plate='MUSKY'");
+    $find_user_array = mysqli_fetch_array($find_user_test);
+
+    $highest_user_ID = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
+
+    $row = mysqli_fetch_array($highest_user_ID);
+
+    $highest_user_id_int = intval($row['0']);
+
+    $user_id = $highest_user_id_int;
+
+    @$User_test = mysqli_query($con, "SELECT * FROM User WHERE User_ID='$user_id'");
+    @$User_test_array = mysqli_fetch_array($User_test);
+
+    @$travel_test = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE User_ID='$user_id'");
+    @$travel_array = mysqli_fetch_array($travel_test);
+
+    @$parking = $travel_array['Parking_Structure_ID'];
+
+    @$parking_test = mysqli_query($con, "SELECT * FROM Parking_Structure WHERE Parking_Structure_ID='$parking'");
+    $parking_array = mysqli_fetch_array($parking_test);
+
+    @$parking_space_test = mysqli_query($con, "SELECT * FROM Parking_Spaces WHERE Parking_Structure_ID='$parking'");
+    @$parking_space_array = mysqli_fetch_array($parking_space_test);
+
+    echo("<pre>");
+    print_r($vehicle_test_array);
+    print_r($find_user_array);
+    print_r($User_test_array);
+    print_r($travel_array);
+    print_r($parking_array);
+    print_r($parking_space_array);
+    die();
