@@ -1,11 +1,149 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-body {
-    font-family: 'Roboto', sans-serif;
+.jumbotron{
+    background-image: url(../Images/car_park_banner.jpg);
+    /* height: 750px; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    padding: 0px;
+    color: #ffffff;
+}
+
+.jumbotron .container{
     text-align: center;
 }
 
-a {
-    margin-right: 20px !important;
+.jumbotron .container button{
+    background-color: #ff6a3d;
+    color: #ffffff;
 }
 
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+  }
+
+img{
+    max-width: 100%;
+}
+/* body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+} */
+
+nav{
+    background-color: #1a2238;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.login_body{
+background-image: url('../Images/car_park_login.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: #1a2238b2 !important;
+}
+
+.reg-card{
+    height: 530px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: #1a2238b2 !important;
+}
+
+.forget-card{
+    height: 200px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: #1a2238b2 !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #ff6a3d;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #ff6a3d;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #ff6a3d;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
