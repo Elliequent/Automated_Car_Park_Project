@@ -43,12 +43,12 @@ require "../System/Classes/User_Vehicles.php";
 
 <?php
 
-    $user_vehicle_test = mysqli_query($con, "SELECT * FROM User_Vehicles WHERE User_ID = '00002'");
+    $user_vehicle_test = mysqli_query($con, "SELECT * FROM User_Vehicles WHERE Registeration_Plate = 'CRAIG'");
     $user_vehicle_test_array = mysqli_fetch_array($user_vehicle_test);
 
     $User_ID = $user_vehicle_test_array['User_ID'];
 
-    $user_vehicle_obj = new User_Vehicles($con, $User_ID);
+    $user_vehicle_obj = new User_Vehicles($con, "CRAIG");
 
     echo("User ID: ");
     echo($user_vehicle_obj->getUser_ID());

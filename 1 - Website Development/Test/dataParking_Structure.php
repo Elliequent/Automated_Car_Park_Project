@@ -43,10 +43,10 @@ require "../System/Classes/Parking_Structure.php";
 
 <?php
 
-    $parking_structure_test = mysqli_query($con, "SELECT * FROM Parking_Structure WHERE Parking_Structure_ID = '00001'");
+    $parking_structure_test = mysqli_query($con, "SELECT MAX(Parking_Structure_ID) FROM Parking_Structure");
     $parking_structure_test_array = mysqli_fetch_array($parking_structure_test);
 
-    $parking_structure_ID = $parking_structure_test_array['Parking_Structure_ID'];
+    $parking_structure_ID = $parking_structure_test_array[0];
 
     $parking_strucuture_obj = new Parking_Structure($con, $parking_structure_ID);
 

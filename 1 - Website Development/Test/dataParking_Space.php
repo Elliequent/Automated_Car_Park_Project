@@ -46,7 +46,7 @@ require "../System/Classes/Parking_Space.php";
     $parking_space_test = mysqli_query($con, "SELECT * FROM Parking_Spaces WHERE Parking_Space_ID = '3'");
     $parking_space_test_array = mysqli_fetch_array($parking_space_test);
 
-    $parking_space_ID = $parking_space_test_array['Parking_Structure_ID'];
+    $parking_space_ID = $parking_space_test_array['Parking_Space_ID'];
 
     $parking_space_obj = new Parking_Space($con, $parking_space_ID);
 

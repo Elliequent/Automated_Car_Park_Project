@@ -43,7 +43,7 @@ require "../System/Classes/Vehicle.php";
 
 <?php
 
-    $vehicle_test = mysqli_query($con, "SELECT * FROM Vehicle WHERE Registeration_Plate = 'MUSKY'");
+    $vehicle_test = mysqli_query($con, "SELECT * FROM Vehicle WHERE Registeration_Plate = 'CRAIG'");
     $vehicle_test_array = mysqli_fetch_array($vehicle_test);
 
     $licence_plate = $vehicle_test_array['Registeration_Plate'];

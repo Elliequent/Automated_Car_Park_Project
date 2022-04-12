@@ -2,7 +2,7 @@
 
 require '../System/Config/config.php';
 
-require "../System/Classes/User.php";
+require "../System/Classes/Parking_Structure.php";
 
 ?>
 
@@ -43,17 +43,17 @@ require "../System/Classes/User.php";
 
 <?php
 
-    $user_test = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
-    $user_test_array = mysqli_fetch_array($user_test);
+    $Parking_Structure_test = mysqli_query($con, "SELECT MAX(Parking_Structure_ID) FROM Parking_Structure");
+    $Parking_Structure_test_array = mysqli_fetch_array($Parking_Structure_test);
 
-    $User_ID = $user_test_array[0];
+    $Parking_Structure_ID = $Parking_Structure_test_array[0];
 
-    $user_obj = new User($con, $User_ID);
+    $Parking_Structure_obj = new Parking_Structure($con, $Parking_Structure_ID);
 
-    if($user_obj->newUser($con, 'ADAM_001', 'PASSWORD', 'ADAM', 'ADAMS', 'ADAMADANS@GMAIL.COM', '0777777777', 'ADAM STREET'))
+    if($Parking_Structure_obj->newParking_Structure($con, '123 ADAM STREET', 10, 5.00))
     {
 
-        echo("USER ADDED");
+        echo("PARKING STRUCTURE ADDED");
         header("refresh: 5; url = ../index.php");
         exit();
 

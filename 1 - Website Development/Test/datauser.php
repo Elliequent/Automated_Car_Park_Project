@@ -43,10 +43,10 @@ require "../System/Classes/User.php";
 
 <?php
 
-    $user_test = mysqli_query($con, "SELECT * FROM User WHERE User_ID = '00003'");
+    $user_test = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
     $user_test_array = mysqli_fetch_array($user_test);
 
-    $User_ID = $user_test_array['User_ID'];
+    $User_ID = $user_test_array[0];
 
     $user_obj = new User($con, $User_ID);
 

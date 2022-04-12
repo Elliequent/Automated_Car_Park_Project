@@ -2,7 +2,7 @@
 
 require '../System/Config/config.php';
 
-require "../System/Classes/User.php";
+require "../System/Classes/Vehicle.php";
 
 ?>
 
@@ -43,17 +43,17 @@ require "../System/Classes/User.php";
 
 <?php
 
-    $user_test = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
-    $user_test_array = mysqli_fetch_array($user_test);
+    $vehicle_test = mysqli_query($con, "SELECT * FROM Vehicle WHERE Registeration_Plate = 'MUSKY'");
+    $vehicle_test_array = mysqli_fetch_array($vehicle_test);
 
-    $User_ID = $user_test_array[0];
+    $licence_plate = $vehicle_test_array['Registeration_Plate'];
 
-    $user_obj = new User($con, $User_ID);
+    $vehicle_obj = new Vehicle($con, $licence_plate);
 
-    if($user_obj->newUser($con, 'ADAM_001', 'PASSWORD', 'ADAM', 'ADAMS', 'ADAMADANS@GMAIL.COM', '0777777777', 'ADAM STREET'))
+    if($vehicle_obj->newVehicle($con, 'AB11 54BA', 'FORD', 'FOCUS', 'No', 'No'))
     {
 
-        echo("USER ADDED");
+        echo("VEHICLE ADDED");
         header("refresh: 5; url = ../index.php");
         exit();
 

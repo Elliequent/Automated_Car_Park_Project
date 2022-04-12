@@ -2,7 +2,7 @@
 
 require '../System/Config/config.php';
 
-require "../System/Classes/User.php";
+require "../System/Classes/Event.php";
 
 ?>
 
@@ -43,29 +43,42 @@ require "../System/Classes/User.php";
 
 <?php
 
-    $user_test = mysqli_query($con, "SELECT MAX(User_ID) FROM User");
-    $user_test_array = mysqli_fetch_array($user_test);
+    $event_test = mysqli_query($con, "SELECT MAX(event_ID) FROM Event");
+    $event_test_array = mysqli_fetch_array($event_test);
 
-    $User_ID = $user_test_array[0];
+    $event_ID = $event_test_array[0];
 
-    $user_obj = new User($con, $User_ID);
+    $event_obj = new Event($con, $event_ID);
 
-    if($user_obj->newUser($con, 'ADAM_001', 'PASSWORD', 'ADAM', 'ADAMS', 'ADAMADANS@GMAIL.COM', '0777777777', 'ADAM STREET'))
-    {
-
-        echo("USER ADDED");
-        header("refresh: 5; url = ../index.php");
-        exit();
-
-    }
-    else
-    {
-
-        echo("Something went wrong <br>");
-        print(mysqli_error($con));
-
-    }
+    echo("Event ID: ");
+    echo($event_obj->getEvent_ID());
+    echo("<br>");
+    echo("Licence Plate: ");
+    echo($event_obj->getRegisteration_Plate()); 
+    echo("<br>");
+    echo("User ID: ");
+    echo($event_obj->getUser_ID());
+    echo("<br>");
+    echo("Date and time of Arrival: ");
+    echo($event_obj->getArrival_Time());
+    echo("<br>");
+    echo("Date and time of departure: ");
+    echo($event_obj->getDeparture_Time());
+    echo("<br>");
+    echo("Parking Structure: ");
+    echo($event_obj->getParking_Structure_ID());
+    echo("<br>");
+    echo("Parking Space: ");
+    echo($event_obj->getParking_Space_ID());
+    echo("<br>");
+    echo("Bill: ");
+    echo($event_obj->getbill());
+    echo("<br>");
 
 ?>
+
+<br><br>
+
+<a href="../index.php">BACK</a>
 
 </body>

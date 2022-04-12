@@ -43,10 +43,10 @@ require "../System/Classes/Arrival_Departure.php";
 
 <?php
 
-    $arrival_departure_test = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE User_ID = '00002'");
+    $arrival_departure_test = mysqli_query($con, "SELECT MAX(Arrival_Departure_ID) FROM Arrival_Departure WHERE User_ID = '3'");
     $arrival_departure_test_array = mysqli_fetch_array($arrival_departure_test);
 
-    $arrival_departure_ID = $arrival_departure_test_array['User_ID'];
+    $arrival_departure_ID = $arrival_departure_test_array[0];
 
     $arrival_departure_obj = new Arrival_Departure($con, $arrival_departure_ID);
 
