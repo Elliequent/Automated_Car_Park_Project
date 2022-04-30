@@ -1,114 +1,126 @@
 <?php
 
-require 'System/Config/config.php';
+include 'System/Includes/Navbar.php';
+include 'System/Includes/Left_Bar.php';
 
-require 'System/Classes/User.php';
-require 'System/Classes/Vehicle.php';
-require 'System/Classes/User_Vehicles.php';
-require 'System/Classes/Parking_Structure.php';
-require 'System/Classes/Parking_Space.php';
-require 'System/Classes/Arrival_Departure.php';
+include 'System/Functions/Dashboard_Functions.php';
 
 ?>
 
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-    <!-- Title and Favicon -->
-    <title>Partical Parking - Automated Parking</title>
-    
-    <!-- Flavicon
-    <link rel="icon" href="Assets/Images/Favicon/favicon.ico" type="image/x-icon">
-    -->
 
 
-    <!-- meta -->
-    <meta charset="UTF-8">
-    <meta name="description" content="Practical Parking">
-    <meta name="keywords" content="Parking">
-    <meta name="author" content="Ian Fraser">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Dashboard</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Sales Chart and browser state-->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
 
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="Assets/JavaScript/bootstrap.js"></script>
-    <script src="https://kit.fontawesome.com/34d9021f0e.js"></script>
+                                    <?php $graph_array = calculate_dashboard_monthly($current_parking_structure_id); ?>
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="Assets/CSS/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="Assets/CSS/stylesheet.css">
+                                    <div id="curve_chart" style = 'min-height: 60vh; min-width: 50vw;'></div>
+                                </div>
 
-</head>
+                                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                                    <script type="text/javascript">
+                                        google.charts.load('current', {'packages':['corechart']});
+                                        google.charts.setOnLoadCallback(drawChart);
 
-<body>
+                                        function drawChart() 
+                                        {
 
-<h2> Testing - Data </h2>
+                                            var data = google.visualization.arrayToDataTable([
+                                            ['Month', 'Sales'],
+                                            ['<?php echo $graph_array[0][0] ?>',  <?php echo $graph_array[0][1] ?>],
+                                            ['<?php echo $graph_array[1][0] ?>',  <?php echo $graph_array[1][1] ?>],
+                                            ['<?php echo $graph_array[2][0] ?>',  <?php echo $graph_array[2][1] ?>]
+                                            ]);
 
-<br><br>
+                                            var options = {
+                                            title: 'Monthly Sales',
+                                            curveType: 'function',
+                                            legend: { position: 'none' }
+                                            };
 
-<a href="Test/datauser.php">USER DATA</a>
-<a href="Test/datavehicle.php">VEHICLE DATA</a>
-<a href="Test/dataParking_Structure.php">PARKING STRUCTURE DATA</a>
-<a href="Test/dataParking_Space.php">PARKING SPACE DATA</a>
-<a href="Test/dataUser_Vehcile.php">USER_VEHICLE DATA</a>
-<a href="Test/dataArrival_Departure.php">ARRIVAL_DEPARTURE DATA</a>
+                                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-<br><br>
+                                            chart.draw(data, options);
 
-<h2> Testing - Add </h2>
+                                        }
+                                    </script>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex mb-4 no-block">
+                                    <h5 class="card-title mb-0 align-self-center">Currently Occupied</h5>
+                                </div>
+                                <div id="visitor" style="min-height: 50vh; width:100%;">
+                            
+                                        <?php calculate_dashboard_visitors($current_parking_structure_id) ?>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Sales Chart -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Projects of the Month -->
+                <!-- ============================================================== -->
+                
+                <?php
 
-<br><br>
+                    Include 'System/Includes/Footer.php';
 
-<a href="Test/adduser.php">ADD A USER</a>
-<a href="Test/addvehicle.php">ADD A VEHICLE</a>
-<a href="Test/addParking_Structure.php">ADD A PARKING STRUCTURE</a>
-<a href="Test/addParking_Space.php">ADD A PARKING SPACE</a>
-<a href="Test/addParking_Space.php">ADD A PARKING SPACE</a>
+                ?>
 
-<br><br>
-
-<h2> Testing - Other </h2>
-
-<br><br>
-
-<a href="Test/addUser_Vehicle.php">LINK A USER TO A VEHICLE</a>
-<a href="Test/arrive.php">ARRIVAL TEST</a>
-<a href="Test/depart.php">DEPART TEST</a>
-
-<br><br>
-
-<h2> Testing - Update </h2>
-
-<br><br>
-
-<a href="Test/updateuser.php">UPDATE A USER</a> 
-<a href="Test/updatevehicle.php">UPDATE A VEHICLE</a> 
-<a href="Test/updateparking_structure.php">UPDATE A PARKING STRUCTURE</a> 
-<a href="Test/updateparking_space.php">UPDATE A PARKING SPACE</a> 
-
-<br><br>
-
-<h2> Testing - DELETE </h2>
-
-<br><br>
-
-<a href="deleteuser.php">DELETE A USER</a> 
-<a href="deletevehicle.php">DELETE A VEHICLE</a> 
-<a href="deleteparking_strucuture.php">DELETE A PARKING STRUCTURE</a> 
-<a href="deleteparking_space.php">DELETE A PARKING SPACE</a> 
-<a href="deleteuser_vehicle.php">DELETE A USER_VEHICLE</a> 
-<a href="deletearrival_departure.php">DELETE A ARRIVAL_DEPARTURE</a> 
-
-<br><br>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
 
 <?php
 
-
+Include 'System/Includes/Jquery.php';
 
 ?>
 
 </body>
+
+</html>

@@ -63,7 +63,7 @@ require 'System/Form_Handlers/Register_Handler.php';
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
 
-              <input type="text" name="reg_username" class="form-control" placeholder="username" value="<?php 
+              <input type="text" name="reg_username" class="form-control" placeholder="Username" value="<?php 
               if(isset($_SESSION['reg_username'])) {
                 echo $_SESSION['reg_username'];
               } 
@@ -75,7 +75,7 @@ require 'System/Form_Handlers/Register_Handler.php';
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
 
-              <input type="text" name="reg_fname" class="form-control" placeholder="first name" value="<?php 
+              <input type="text" name="reg_fname" class="form-control" placeholder="First name" value="<?php 
               if(isset($_SESSION['reg_fname'])) {
                 echo $_SESSION['reg_fname'];
               } 
@@ -90,7 +90,7 @@ require 'System/Form_Handlers/Register_Handler.php';
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               </div>
 
-              <input type="text" name="reg_lname" class="form-control" placeholder="last name" value="<?php 
+              <input type="text" name="reg_lname" class="form-control" placeholder="Last name" value="<?php 
               if(isset($_SESSION['reg_lname'])) {
                 echo $_SESSION['reg_lname'];
               } 
@@ -105,7 +105,7 @@ require 'System/Form_Handlers/Register_Handler.php';
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
 
-              <input type="text" name="reg_email" class="form-control" placeholder="email" value="<?php 
+              <input type="text" name="reg_email" class="form-control" placeholder="Email" value="<?php 
               if(isset($_SESSION['reg_email'])) {
                 echo $_SESSION['reg_email'];
               } 
@@ -148,7 +148,7 @@ require 'System/Form_Handlers/Register_Handler.php';
                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
               </div>
 
-              <input type="password" name="reg_password" class="form-control" placeholder="password">
+              <input type="password" name="reg_password" class="form-control" placeholder="Password">
 
             </div>
             <div class="input-group form-group">
