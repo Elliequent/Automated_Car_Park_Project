@@ -80,6 +80,13 @@ class User
 
     }
 
+    public function getIs_Banned()
+    {
+
+        return @$this->user['Is_Banned'];                                                                 // GET _ Address
+
+    }
+
     // NOTE - User_ID is determined by system and cannot be set
 
     public function setUsername($username)
@@ -131,6 +138,13 @@ class User
 
     } 
 
+    public function setIs_Banned($Is_Banned)
+    {
+
+        mysqli_query($this->con, "UPDATE User SET Is_Banned = '$Is_Banned' WHERE User_ID='$user'");          // SET Address
+
+    } 
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                         // Functions \\
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,7 +153,7 @@ class User
     {
 
         // Creates new user object
-        if (mysqli_query($con, "INSERT INTO User VALUES ('$username', '$password', '$firstname', '$lastname', '$email', '$phonenumber', '$address')"))
+        if (mysqli_query($con, "INSERT INTO User VALUES (0, '$username', '$password', '$firstname', '$lastname', '$email', '$phonenumber', '$address', 'No')"))
         {
 
             return TRUE;
@@ -193,6 +207,30 @@ class User
         }
 
     }   // End of FUNCTION updateUser()
+
+    public function firstname_and_lastname()
+    {
+
+        $firstname = strtolower(@$this->user['Firstname']);
+        $lastname = strtolower(@$this->user['Lastname']);
+
+        $firstname = ucfirst($firstname);
+        $lastname = ucfirst($lastname);
+
+        $name = $firstname . " " . $lastname;
+
+        return $name;
+
+    }   // End of FUNCTION firstname_and_lastname()
+
+    public function returnCustomerList()
+    {
+
+        $database_query = mysqli_query($this->con, "SELECT * FROM User");
+        
+        return $database_query;
+
+    }   // End of FUNCTION returnCustomerList()
 
 }   // End of Class User
 

@@ -44,6 +44,7 @@ function seedDatabase_part2($con)
         Email VARCHAR(50) NOT NULL,
         Phone_Number VARCHAR(50) NULL,
         Address VARCHAR(255) NOT NULL,
+        Is_Banned VARCHAR(3) NOT NULL,
         PRIMARY KEY (User_ID)
     )";
 
@@ -68,7 +69,7 @@ function seedDatabase_part2($con)
     $create_event_database = "CREATE TABLE Event (
         event_ID INT NOT NULL AUTO_INCREMENT,
         Registeration_Plate VARCHAR(20) NOT NULL,
-        User_ID VARCHAR(20) NOT NULL,
+        User_ID INT NOT NULL,
         Arrival_Time DateTime,
         Departure_Time DateTime,
         Parking_Structure_ID INT,
@@ -152,7 +153,6 @@ function seedDatabase_part2($con)
         Parking_Space_ID INT NOT NULL AUTO_INCREMENT,
         Parking_Structure_ID INT NOT NULL,
         Floor int(20) NOT NULL,
-        Space_Number int(100) NOT NULL,
         is_disabled VARCHAR(3) NULL,
         Registeration_Plate VARCHAR(20),
         PRIMARY KEY (Parking_Space_ID),
@@ -181,8 +181,7 @@ function seedDatabase_part2($con)
     $create_user_vehicles_database = "CREATE TABLE User_Vehicles (
         User_ID INT NOT NULL,
         Registeration_Plate VARCHAR(20) NOT NULL,
-        FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-        FOREIGN KEY (Registeration_Plate) REFERENCES Vehicle(Registeration_Plate)
+        FOREIGN KEY (User_ID) REFERENCES User(User_ID)
     )";
 
     if(mysqli_query($con, $create_user_vehicles_database))
@@ -252,7 +251,7 @@ function seedDatabase_part3($con)
     {
 
         // Adds seed user - Test
-        $seed_user1 = "INSERT INTO User VALUES(0, 'Test', 'Test', 'Test', 'Test', 'Test@Test.com', '0777777777', '123 Test Town')";
+        $seed_user1 = "INSERT INTO User VALUES(0, 'Test', 'Test', 'Test', 'Test', 'Test@Test.com', '0777777777', '123 Test Town', 'No')";
         if(mysqli_query($con, $seed_user1))
         {
 
@@ -263,7 +262,7 @@ function seedDatabase_part3($con)
         else
         {
     
-            echo "FAIL";
+            echo "User 1 : FAIL";
             echo "<br>";
             print(mysqli_error($con));
             die();
@@ -271,7 +270,7 @@ function seedDatabase_part3($con)
         }
 
         // Adds seed user - Elon
-        $seed_user2 = "INSERT INTO User VALUES(0, 'Musky', 'TeslaIsGreat', 'Elon', 'Musk', 'Elon@Testa.com', '0777777777', 'None of your damn business')";
+        $seed_user2 = "INSERT INTO User VALUES(0, 'Musky', 'TeslaIsGreat', 'Elon', 'Musk', 'Elon@Testa.com', '0777777777', 'None of your damn business', 'No')";
         if(mysqli_query($con, $seed_user2))
         {
 
@@ -282,7 +281,7 @@ function seedDatabase_part3($con)
         else
         {
     
-            echo "FAIL";
+            echo "User 2: FAIL";
             echo "<br>";
             print(mysqli_error($con));
             die();
@@ -290,7 +289,7 @@ function seedDatabase_part3($con)
         }
 
         // Adds seed user - Admin
-        $seed_user3 = "INSERT INTO User VALUES(0, 'Admin', 'Admin', 'Admin', 'User', 'Admin@Test.com', '0777777777', '123 Admin Town')";
+        $seed_user3 = "INSERT INTO User VALUES(0, 'Admin', 'Admin', 'Admin', 'User', 'Admin@Test.com', '0777777777', '123 Admin Town', 'Yes')";
         if(mysqli_query($con, $seed_user3))
         {
 
@@ -301,7 +300,7 @@ function seedDatabase_part3($con)
         else
         {
     
-            echo "FAIL";
+            echo "User 3: FAIL";
             echo "<br>";
             print(mysqli_error($con));
             die();
@@ -353,7 +352,7 @@ function seedDatabase_part3($con)
      if (mysqli_num_rows($Vehicle_empty_test) == 0)
      {
  
-         // Adds seed Parking_Spaces
+         // Adds seed vehicle
          $seed_Vehicle1 = "INSERT INTO Vehicle VALUES('MUSKY', 'Tesla', 'Model S', 'Yes', 'Yes')";
          if(mysqli_query($con, $seed_Vehicle1))
          {
@@ -372,8 +371,27 @@ function seedDatabase_part3($con)
     
         }
 
-         // Adds seed Parking_Spaces
+         // Adds seed vehicle
          $seed_Vehicle2 = "INSERT INTO Vehicle VALUES('CRAIG', 'PORSCHE ', '911', 'No', 'No')";
+         if(mysqli_query($con, $seed_Vehicle2))
+         {
+
+            echo "Vehicle 2: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed vehicle
+         $seed_Vehicle2 = "INSERT INTO Vehicle VALUES('VIPER', 'DODGE ', 'VIPER', 'No', 'Yes')";
          if(mysqli_query($con, $seed_Vehicle2))
          {
 
@@ -405,7 +423,7 @@ function seedDatabase_part3($con)
      {
  
          // Adds seed Parking_Spaces1
-         $seed_Parking_Spaces1 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', '1', 'No', NULL)";
+         $seed_Parking_Spaces1 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
          if(mysqli_query($con, $seed_Parking_Spaces1))
          {
 
@@ -424,7 +442,7 @@ function seedDatabase_part3($con)
         }
 
          // Adds seed Parking_Spaces2
-         $seed_Parking_Spaces2 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', '2', 'No', NULL)";
+         $seed_Parking_Spaces2 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
          if(mysqli_query($con, $seed_Parking_Spaces2))
          {
 
@@ -443,7 +461,7 @@ function seedDatabase_part3($con)
         }
 
          // Adds seed Parking_Spaces3
-         $seed_Parking_Spaces3 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', '3', 'No', 'MUSKY')";
+         $seed_Parking_Spaces3 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', 'MUSKY')";
          if(mysqli_query($con, $seed_Parking_Spaces3))
          {
 
@@ -462,7 +480,7 @@ function seedDatabase_part3($con)
         }
 
          // Adds seed Parking_Spaces4
-         $seed_Parking_Spaces4 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', '4', 'No', NULL)";
+         $seed_Parking_Spaces4 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
          if(mysqli_query($con, $seed_Parking_Spaces4))
          {
 
@@ -481,7 +499,7 @@ function seedDatabase_part3($con)
         }
 
          // Adds seed Parking_Spaces5
-         $seed_Parking_Spaces5 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', '5', 'Yes', NULL)";
+         $seed_Parking_Spaces5 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'Yes', NULL)";
          if(mysqli_query($con, $seed_Parking_Spaces5))
          {
 
@@ -498,6 +516,101 @@ function seedDatabase_part3($con)
             die();
     
         }
+
+            // Adds seed Parking_Spaces6
+            $seed_Parking_Spaces6 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'Yes', NULL)";
+            if(mysqli_query($con, $seed_Parking_Spaces6))
+            {
+   
+               echo "Parking space 6: PASS";
+               echo "<br>";
+       
+           }
+           else
+           {
+       
+               echo "FAIL";
+               echo "<br>";
+               print(mysqli_error($con));
+               die();
+       
+           }
+
+            // Adds seed Parking_Spaces7
+            $seed_Parking_Spaces7 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
+            if(mysqli_query($con, $seed_Parking_Spaces7))
+            {
+   
+               echo "Parking space 7: PASS";
+               echo "<br>";
+       
+           }
+           else
+           {
+       
+               echo "FAIL";
+               echo "<br>";
+               print(mysqli_error($con));
+               die();
+       
+           }
+
+            // Adds seed Parking_Spaces8
+            $seed_Parking_Spaces8 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
+            if(mysqli_query($con, $seed_Parking_Spaces8))
+            {
+   
+               echo "Parking space 8: PASS";
+               echo "<br>";
+       
+           }
+           else
+           {
+       
+               echo "FAIL";
+               echo "<br>";
+               print(mysqli_error($con));
+               die();
+       
+           }
+
+            // Adds seed Parking_Spaces9
+            $seed_Parking_Spaces9 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'No', NULL)";
+            if(mysqli_query($con, $seed_Parking_Spaces9))
+            {
+   
+               echo "Parking space 9: PASS";
+               echo "<br>";
+       
+           }
+           else
+           {
+       
+               echo "FAIL";
+               echo "<br>";
+               print(mysqli_error($con));
+               die();
+       
+           }
+
+             // Adds seed Parking_Spaces10
+            $seed_Parking_Spaces10 = "INSERT INTO Parking_Spaces VALUES(0, '1', '1', 'Yes', 'VIPER')";
+            if(mysqli_query($con, $seed_Parking_Spaces10))
+            {
+   
+               echo "Parking space 10: PASS";
+               echo "<br>";
+       
+           }
+           else
+           {
+       
+               echo "FAIL";
+               echo "<br>";
+               print(mysqli_error($con));
+               die();
+       
+           }
  
      }   // End of IF (mysqli_num_rows($Parking_Spaces_empty_test) == 0)
 
@@ -512,7 +625,7 @@ function seedDatabase_part3($con)
      if (mysqli_num_rows($User_Vehicles_empty_test) == 0)
      {
  
-         // Adds seed Parking_Spaces
+         // Adds seed User_Vehicles
          $seed_User_Vehicles1 = "INSERT INTO User_Vehicles VALUES(2, 'MUSKY')";
          if(mysqli_query($con, $seed_User_Vehicles1))
          {
@@ -531,12 +644,31 @@ function seedDatabase_part3($con)
     
         }
 
-        // Adds seed Parking_Spaces
+        // Adds seed User_Vehicles
         $seed_User_Vehicles2 = "INSERT INTO User_Vehicles VALUES(3, 'CRAIG')";
         if(mysqli_query($con, $seed_User_Vehicles2))
         {
 
            echo "User Vehicle 2: PASS";
+           echo "<br>";
+   
+       }
+       else
+       {
+   
+           echo "FAIL";
+           echo "<br>";
+           print(mysqli_error($con));
+           die();
+   
+       }
+
+        // Adds seed User_Vehicles
+        $seed_User_Vehicles3 = "INSERT INTO User_Vehicles VALUES(1, 'VIPER')";
+        if(mysqli_query($con, $seed_User_Vehicles3))
+        {
+
+           echo "User Vehicle 3: PASS";
            echo "<br>";
    
        }
@@ -564,7 +696,7 @@ function seedDatabase_part3($con)
     {
 
         // Adds seed Arrival_Departure1
-        $seed_Arrival_Departure1 = "INSERT INTO Arrival_Departure VALUES(0, '2022-03-06 12:00:00', '2022-03-06 16:00:00', '2', '1')";
+        $seed_Arrival_Departure1 = "INSERT INTO Arrival_Departure VALUES(0, '2022-03-06 12:00:00', '2022-03-06 16:00:00', '1', '1')";
         if(mysqli_query($con, $seed_Arrival_Departure1))
         {
 
@@ -583,7 +715,7 @@ function seedDatabase_part3($con)
         }
 
         // Adds seed Arrival_Departure2
-        $seed_Arrival_Departure2 = "INSERT INTO Arrival_Departure VALUES(0, '2022-01-01 12:00:00', '2022-01-01 18:00:00', '2', '1')";
+        $seed_Arrival_Departure2 = "INSERT INTO Arrival_Departure VALUES(0, '2022-01-01 12:00:00', '2022-01-01 18:00:00', '1', '1')";
         if(mysqli_query($con, $seed_Arrival_Departure2))
         {
 
@@ -602,11 +734,217 @@ function seedDatabase_part3($con)
         }
 
         // Adds seed Arrival_Departure3
-        $seed_Arrival_Departure3 = "INSERT INTO Arrival_Departure VALUES(0, '2022-02-02 12:00:00', '2022-02-02 15:00:00', '2', '1')";
+        $seed_Arrival_Departure3 = "INSERT INTO Arrival_Departure VALUES(0, '2022-02-02 12:00:00', '2022-02-02 15:00:00', '1', '1')";
         if(mysqli_query($con, $seed_Arrival_Departure3))
         {
 
             echo "Arrival Departure 3: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+    }   // End of IF (mysqli_num_rows($Arrival_Departure_empty_test) == 0)
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                     // Event Database Seed \\
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Populating database table Events
+    $Event_empty_test = mysqli_query($con, "SELECT * FROM Event");
+
+    // If database table Event is empty
+    if (mysqli_num_rows($Event_empty_test) == 0)
+    {
+
+        // Adds seed Event1
+        $seed_Event1 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-03-06 12:00:00', '2022-03-06 16:00:00', '1', '1', '20.00')";
+        if(mysqli_query($con, $seed_Event1))
+        {
+
+            echo "Event 1: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event2
+        $seed_Event2 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-03-10 12:00:00', '2022-03-10 16:00:00', '1', '1', '10.00')";
+        if(mysqli_query($con, $seed_Event2))
+        {
+
+            echo "Event 2: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event3
+        $seed_Event3 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-03-15 12:00:00', '2022-03-15 16:00:00', '1', '1', '30.00')";
+        if(mysqli_query($con, $seed_Event3))
+        {
+
+            echo "Event 3: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event4
+        $seed_Event4 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-02-15 12:00:00', '2022-02-15 16:00:00', '1', '1', '30.00')";
+        if(mysqli_query($con, $seed_Event4))
+        {
+
+            echo "Event 4: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event5
+        $seed_Event5 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-02-10 12:00:00', '2022-02-10 16:00:00', '1', '1', '10.00')";
+        if(mysqli_query($con, $seed_Event5))
+        {
+
+            echo "Event 5: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event6
+        $seed_Event6 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-02-05 12:00:00', '2022-02-05 16:00:00', '1', '1', '10.00')";
+        if(mysqli_query($con, $seed_Event6))
+        {
+
+            echo "Event 6: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event7
+        $seed_Event7 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-04-05 12:00:00', '2022-04-05 16:00:00', '1', '1', '50.00')";
+        if(mysqli_query($con, $seed_Event7))
+        {
+
+            echo "Event 7: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event8
+        $seed_Event8 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-04-15 12:00:00', '2022-04-15 16:00:00', '1', '1', '40.00')";
+        if(mysqli_query($con, $seed_Event8))
+        {
+
+            echo "Event 8: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event9
+        $seed_Event9 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '2022-04-10 12:00:00', '2022-04-10 16:00:00', '1', '1', '20.00')";
+        if(mysqli_query($con, $seed_Event9))
+        {
+
+            echo "Event 9: PASS";
+            echo "<br>";
+    
+        }
+        else
+        {
+    
+            echo "FAIL";
+            echo "<br>";
+            print(mysqli_error($con));
+            die();
+    
+        }
+
+        // Adds seed Event10
+
+        $todays_date = date("Y/m/d H:i:s");
+
+        $seed_Event10 = "INSERT INTO Event VALUES(0, 'MUSKY', '2', '$todays_date', '$todays_date', '1', '1', '10.00')";
+        if(mysqli_query($con, $seed_Event10))
+        {
+
+            echo "Event 10: PASS";
             echo "<br>";
     
         }

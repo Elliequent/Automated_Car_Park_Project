@@ -59,13 +59,6 @@ class Vehicle
 
     }
 
-    public function getParking_Space_ID()
-    {
-
-        return @$this->vehicle['Parking_Space_ID'];
-
-    }
-
     // NOTE - Registeration_Plate is provided by user and not generated
 
     public function setMake($Make)
@@ -102,11 +95,11 @@ class Vehicle
                                                         // Functions \\
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function newVehicle($con, $Registeration_Plate, $Make, $Model, $Is_Electric, $Is_Currently_Parked, $Parking_Space_ID)
+    public function newVehicle($con, $Registeration_Plate, $Make, $Model, $Is_Electric, $Is_Currently_Parked)
     {
 
         // Creates new vehicle object
-        if (mysqli_query($con, "INSERT INTO Vehicle VALUES ('$Registeration_Plate', '$Make', '$Model', '$Is_Electric', '$Is_Currently_Parked', '$Parking_Space_ID')"))
+        if (mysqli_query($con, "INSERT INTO Vehicle VALUES ('$Registeration_Plate', '$Make', '$Model', '$Is_Electric', '$Is_Currently_Parked')"))
         {
 
             return TRUE;

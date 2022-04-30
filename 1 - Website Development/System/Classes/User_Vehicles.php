@@ -92,6 +92,47 @@ class User_Vehicles
 
     }   // End of FUNCTION newUser_Vehicles()
 
+    public function addUser_Vehicles($con, $Registeration_Plate, $User_ID)
+    {
+
+        // Checks if user already has a vehicle registered to their account - if yes then create array
+        $user_vehicle_check = mysqli_query($con, "SELECT Registeration_Plate FROM User_Vehicles WHERE User_ID='$User_ID'");
+
+        $row = mysqli_fetch_array($user_vehicle_check);
+
+        $vehicle_list = explode(",", $row);
+
+        $counter = 0;
+        $car_list = "";
+
+        // Goes through each car in array and matches licence plate and removes
+        foreach ($vehicle_list as $car) 
+        {
+            
+            $car_list += "," . $Registeration_Plate;
+
+        }   // End of FOREACH ($vehicle_list as $car) 
+ 
+        // Returns vechile array back to string 
+        $Registeration_Plate = implode(",", $vehicle_list);
+
+        // Stores new licence plate string in database and returns TRUE if successful
+        if (mysqli_query($con, "UPDATE User_Vehicles SET Registeration_Plate = '$Registeration_Plate' WHERE User_ID='$User_ID'"))
+
+        {
+
+            return TRUE;
+
+        }
+        else
+        {
+
+            return FALSE;
+
+        }
+
+    }   // End of FUNCTION addUser_Vehicles()
+
     public function removeUser_Vehicles($con, $Registeration_Plate, $User_ID)
     {
 
@@ -137,11 +178,11 @@ class User_Vehicles
 
         }
 
-    }   // End of FUNCTION updateUser_Vehicles()
+    }   // End of FUNCTION removeUser_Vehicles()
 
     // REQUIRED - create add vehicle and remove vehicle function here
 
-    public function deleteUser_Vehicles($con, $Parking_Structure_ID)
+    public function deleteUser_Vehicles($con, $User_ID)
     {
 
         // Removes all vechiles associated with user - part of BANNING system
@@ -160,6 +201,20 @@ class User_Vehicles
         }
 
     }   // End of FUNCTION deleteUser_Vehicles()
+
+    public function returnUser_Vehicles($con, $User_ID)
+    {
+
+        // Checks if user already has a vehicle registered to their account - if yes then create array
+        $user_vehicle_check = mysqli_query($con, "SELECT * FROM User_Vehicles WHERE User_ID='$User_ID'");
+
+        @$row = mysqli_fetch_array($user_vehicle_check);
+
+        @$vehicle_list = explode(",", $row['Registeration_Plate']);
+
+        return $vehicle_list;
+
+    }   // END of FUNCTION returnUser_Vehicles()
 
 }   // End of Class User
 

@@ -45,13 +45,6 @@ class Parking_Space
 
     }
 
-    public function getSpace_Number()
-    {
-
-        return @$this->parking_spaces['Space_Number']; 
-
-    }
-
     public function getis_disabled()
     {
 
@@ -75,13 +68,6 @@ class Parking_Space
 
     } 
 
-    public function setSpace_Number($Space_Number)
-    {
-
-        mysqli_query($this->con, "UPDATE Parking_Spaces SET Space_Number = '$Space_Number' WHERE Parking_Space_ID='$parking_spaces'");
-
-    } 
-
     public function setis_disabled($is_disabled)
     {
 
@@ -100,11 +86,11 @@ class Parking_Space
                                                         // Functions \\
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function newParking_Spaces($con, $Parking_Structure_ID, $Floor, $Space_Number, $is_disabled)
+    public function newParking_Spaces($con, $Parking_Structure_ID, $Floor, $Space_Number, $is_disabled, $Registeration_Plate)
     {
 
         // Creates a new parking space object
-        if (mysqli_query($con, "INSERT INTO Parking_Spaces VALUES ('$Parking_Structure_ID', '$Floor', '$Space_Number', '$is_disabled')"))
+        if (mysqli_query($con, "INSERT INTO Parking_Spaces VALUES (0, '$Parking_Structure_ID', '$Floor', '$Space_Number', '$is_disabled', '$Registeration_Plate')"))
         {
 
             return TRUE;
@@ -158,6 +144,25 @@ class Parking_Space
         }
 
     }   // End of FUNCTION deleteParking_Spaces()
+
+    public function assemble_Parking_Spaces($con, $Parking_Structure_ID)
+    {
+
+        return $All_parking_spaces = mysqli_query($con, "SELECT * FROM Parking_Spaces WHERE Parking_Structure_ID='$Parking_Structure_ID' ORDER BY Parking_Space_ID");
+
+    }   // End of FUNCTION Display_Parking_Spaces()
+
+    public function Find_car($con, $Registeration_Plate)
+    {
+
+        $parking_space_query = mysqli_query($con, "SELECT * FROM Parking_Spaces WHERE Registeration_Plate='$Registeration_Plate' ORDER BY Parking_Space_ID");
+        $vehicle_test_array = mysqli_fetch_array($parking_space_query);
+
+        @$parking_space = $vehicle_test_array['Parking_Space_ID'];
+
+        return $parking_space;
+
+    }   // End of FUNCTION Display_Parking_Spaces()
 
 }   // End of Class User
 

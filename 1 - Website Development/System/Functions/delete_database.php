@@ -3,7 +3,7 @@
 function deletedatabase()
 {
 
-    $servername = "178.79.190.121:3306";
+	$servername = "178.79.190.121:3306";
     $username = "admin";
     $password = "OMEGA44DAYS00#";
 
@@ -23,7 +23,7 @@ function deletedatabase()
     {
 
         echo "Database deleted - redirecting and repopulating database";
-        header("refresh: 5; url = ../../index.php");
+        header("refresh: 5; url = Database_Populate.php");
         exit();
 
     }

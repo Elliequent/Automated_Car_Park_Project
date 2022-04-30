@@ -16,7 +16,7 @@ class Arrival_Departure
 
         // This needs to be changed to Arrival_Departure_ID when new DB is up
        $this->con = $con;
-       $arrival_departure_details_query = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE User_ID = '$arrival_departure'");
+       $arrival_departure_details_query = mysqli_query($con, "SELECT * FROM Arrival_Departure WHERE Arrival_Departure_ID = '$arrival_departure'");
        $this->arrival_departure = mysqli_fetch_array($arrival_departure_details_query);
 
     } 
@@ -42,21 +42,21 @@ class Arrival_Departure
     public function getArrival_Time()
     {
 
-        return @$this->Departure_Time['Arrival_Time'];
+        return @$this->arrival_departure['Arrival_Time'];
 
     }
 
     public function getDeparture_Time()
     {
 
-        return @$this->Departure_Time['Departure_Time'];
+        return @$this->arrival_departure['Departure_Time'];
 
     }
 
     public function getParking_Structure_ID()
     {
 
-        return @$this->Departure_Time['Parking_Structure_ID'];
+        return @$this->arrival_departure['Parking_Structure_ID'];
 
     }
 
