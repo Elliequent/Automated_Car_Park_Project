@@ -48,7 +48,7 @@ require "../System/Classes/User_Vehicles.php";
 
     $User_ID = $user_vehicle_test_array['User_ID'];
 
-    $user_vehicle_obj = new User_Vehicles($con, "CRAIG");
+    $user_vehicle_obj = new User_Vehicles($con, $User_ID);
 
     echo("User ID: ");
     echo($user_vehicle_obj->getUser_ID());
