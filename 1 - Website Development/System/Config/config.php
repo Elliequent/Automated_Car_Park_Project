@@ -19,9 +19,9 @@ $timezone = date_default_timezone_set("Europe/London");
 										// Database connection Section \\
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$servername = "178.79.190.121:3306";
+$servername = "";
 $username = "admin";
-$password = "OMEGA44DAYS00#";
+$password = "";
 
 // IP Address, username, password and database table
 $con = mysqli_connect($servername, $username, $password); 
